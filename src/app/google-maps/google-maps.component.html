@@ -1,7 +1,9 @@
-<div *ngIf="apiLoaded | async">
-  <google-map [center]="center" [zoom]="zoom" [options]="mapOptions">
-    <map-marker *ngFor="let markerPosition of markerPositions"
-                [position]="markerPosition"
-                [options]="markerOptions" ></map-marker>
+<div *ngIf="isApiLoaded && markers.length != 0">
+  <google-map [center]="center" [zoom]="zoom">
+    <map-marker *ngFor="let marker of markers"
+                [position]="marker.position"
+                [options]="markerOptions"
+                (mapClick)="onMarkerClick(marker.id)">
+    </map-marker>
   </google-map>
 </div>
