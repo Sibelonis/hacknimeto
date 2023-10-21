@@ -1,21 +1,26 @@
-<div class="displayTable">
+<section class="w-screen h-screen bg-gradient-to-r from-white to-blue-300">
+<app-navigation></app-navigation>
+
+  <div class="flex justify-center items-center text-center pt-10">
   <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign In</h3>
-      <div class="formGroup">
+    <div class="flex flex-col gap-5">
+      <span class="text-blue-800 font-bold">Prihlasenie</span>
+      <div class="flex flex-col">
+        <span class="text-blue-800 font-extrabold">E-mail</span>
         <input
-          type="text"
-          class="formControl"
-          placeholder="Username"
+          type="email"
+          class="bg-ordinary-blue rounded-3xl px-4 py-2 text-white"
+          placeholder="@"
           #userName
           required
         />
       </div>
-      <div class="formGroup">
+      <div class="flex flex-col">
+        <span class="text-blue-800 font-extrabold">Heslo</span>
         <input
           type="password"
-          class="formControl"
-          placeholder="Password"
+          class="bg-ordinary-blue rounded-3xl px-4 py-2 text-white"
+          placeholder="********"
           #userPassword
           required
         />
@@ -24,27 +29,25 @@
       <div class="formGroup">
         <input
           type="button"
-          class="btn btnPrimary"
-          value="Log in"
+          class="bg-blue-800 rounded-2xl px-8 py-1 hover:cursor-pointer text-white"
+          value="Prihlasiť"
           (click)="authService.SignIn(userName.value, userPassword.value)"
         />
       </div>
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
       <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
+        <span class="text-blue-800 font-extrabold" routerLink="/forgot-password">Zabudli ste heslo?</span>
       </div>
     </div>
     <div class="redirectToLogin">
-      <span
-      >Don't have an account?<span
-        class="redirect"
+      <span class=""
+      >Nemáte vytvorený účet?<span
+        class="text-blue-800 font-extrabold"
         routerLink="/register-user"
       >
-          Sign Up</span
+          Registrujte sa</span
       ></span
       >
     </div>
   </div>
 </div>
+</section>
