@@ -13,13 +13,26 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import {AngularFireModule} from "@angular/fire/compat";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FirstViewComponent,
-    GoogleMapsComponent
+    GoogleMapsComponent,
+    DashboardComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +43,10 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
     GoogleMapsModule,
     CommonModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
