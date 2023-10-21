@@ -13,6 +13,12 @@ export class GoogleMapsComponent {
 
   center = {lat: 48.9974, lng: 21.2394};  // Koordináty pre Prešov
   zoom = 12;
+  mapOptions: google.maps.MapOptions = {
+    disableDefaultUI: true // Hide default UI elements (buttons)
+    // Add any other map options as needed
+  };
+
+
   markerOptions: google.maps.MarkerOptions = {
     draggable: false,
     icon: {
@@ -32,4 +38,5 @@ export class GoogleMapsComponent {
         catchError(() => of(false)),
       );
   }
+
 }
