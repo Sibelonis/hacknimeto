@@ -19,7 +19,11 @@ export class GoogleMapsComponent {
       url: 'assets/icons/pin_icon.png',
     },
   };
-  markerPositions: google.maps.LatLngLiteral[] = [ {lat: 48.9974, lng: 21.2394}, ];
+  markerPositions: google.maps.LatLngLiteral[] = [ {lat: 48.9974, lng: 21.2394},
+    {lat:49.017299,lng:21.229549},
+    {lat:49.018349,lng:21.223800},
+    {lat:48.975329,lng:21.262033},
+    {lat:48.999202,lng:21.270453}];
 
   constructor(httpClient: HttpClient) {
     this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyCRCwW5TT9tjjYNwnp9RvRXzotMlM4ZN0s', 'callback')
