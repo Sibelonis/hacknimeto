@@ -13,13 +13,15 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { ReservationComponent } from './reservation/reservation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FirstViewComponent,
-    GoogleMapsComponent
+    GoogleMapsComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

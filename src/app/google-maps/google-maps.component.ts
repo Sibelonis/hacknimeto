@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { FirebaseService } from '../firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-google-maps',
   templateUrl: './google-maps.component.html',
-  styleUrls: ['./google-maps.component.css']
+  styleUrls: ['./google-maps.component.css'],
 })
-export class GoogleMapsComponent {
-  apiLoaded: Observable<boolean>;
+export class GoogleMapsComponent implements OnInit {
+  apiLoaded$: Observable<boolean>;
+  isApiLoaded = false; // variable to store the result of apiLoaded$ observable
+  chargers: any[] = [];
+  markers: any[] = [];
 
-  center = {lat: 48.9974, lng: 21.2394};  // Koordináty pre Prešov
+  ngOnInit() {
+    this.loadData();
+  }
+
+  center = { lat: 48.9974, lng: 21.2394 };
   zoom = 12;
   markerOptions: google.maps.MarkerOptions = {
     draggable: false,
@@ -19,17 +28,45 @@ export class GoogleMapsComponent {
       url: 'assets/icons/pin_icon.png',
     },
   };
-  markerPositions: google.maps.LatLngLiteral[] = [ {lat: 48.9974, lng: 21.2394},
-    {lat:49.017299,lng:21.229549},
-    {lat:49.018349,lng:21.223800},
-    {lat:48.975329,lng:21.262033},
-    {lat:48.999202,lng:21.270453}];
 
-  constructor(httpClient: HttpClient) {
-    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyCRCwW5TT9tjjYNwnp9RvRXzotMlM4ZN0s', 'callback')
+  constructor(
+    httpClient: HttpClient,
+    private FirebaseService: FirebaseService,
+    private router: Router,
+  ) {
+    this.apiLoaded$ = httpClient
+      .jsonp(
+        'https://maps.googleapis.com/maps/api/js?key=AIzaSyCRCwW5TT9tjjYNwnp9RvRXzotMlM4ZN0s',
+        'callback',
+      )
       .pipe(
         map(() => true),
         catchError(() => of(false)),
       );
+
+    // subscribe to apiLoaded$ observable and store the result in isApiLoaded variable
+    this.apiLoaded$.subscribe((isLoaded) => {
+      this.isApiLoaded = isLoaded;
+    });
+  }
+
+  onMarkerClick(chargerId: string) {
+    console.log(chargerId);
+    this.router.navigate(['/reservation', chargerId]);
+  }
+
+  private loadData() {
+    this.FirebaseService.getData('chargers').subscribe((data: any[]) => {
+      this.chargers = data;
+      this.chargers.forEach((charger) => {
+        this.markers.push({
+          id: charger.id,
+          position: {
+            lat: charger.coordinates._lat,
+            lng: charger.coordinates._long,
+          },
+        });
+      });
+    });
   }
 }
