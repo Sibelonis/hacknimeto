@@ -1,7 +1,18 @@
 <mat-form-field>
   <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker">
+  <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
   <mat-hint>MM/DD/YYYY</mat-hint>
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
+
+<mat-radio-group [(ngModel)]="selectedTimeSlot">
+  <mat-radio-button
+    *ngFor="let timeSlot of timeSlots"
+    [value]="timeSlot"
+    [disabled]="occupiedTimes.includes(timeSlot)"
+  >
+    {{ timeSlot }}
+  </mat-radio-button>
+</mat-radio-group>
+
